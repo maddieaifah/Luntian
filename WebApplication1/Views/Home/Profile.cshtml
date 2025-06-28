@@ -1,0 +1,196 @@
+@{
+    ViewData["Title"] = "Profile";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LUNTIAN | Profile</title>
+    <link rel="stylesheet" href="~/css/citizens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo-section">
+        <img src="~/images/logo only luntian.png" class="logo-img" />
+        <span class="logo-text">LUNTIAN</span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <div class="nav-links" id="navLinks">
+        <a asp-action="CitizenHome" asp-controller="Home"><i class="fas fa-home"></i> Home</a>
+        <a asp-action="ReportIssue" asp-controller="Home"><i class="fas fa-exclamation-circle"></i> Report Issue</a>
+        <a asp-action="Notification" asp-controller="Home" class="notif-icon">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span> <!-- sample unread count -->
+            </a>
+
+        <div class="profile-container">
+            <img src="~/images/profile.png" class="profile-icon" onclick="toggleDropdown()" />
+            <div class="profile-dropdown" id="profileDropdown">
+                <a asp-action="Profile" asp-controller="Home"><i class="fas fa-user-circle"></i> Profile</a>
+                <a asp-action="RoleSelection" asp-controller="Home"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Layout -->
+<form asp-action="UpdateProfile" asp-controller="Home" method="post" enctype="multipart/form-data" class="profile-form">
+  <div class="profile-wrapper">
+    <!-- Profile Left Column -->
+    <div class="profile-left">
+      <h2 class="profile-title">My Profile</h2>
+      <div class="sticky-profile">
+        <label for="uploadPhoto" class="profile-photo-container">
+          <img id="profileImage" src="~/images/profile.png" class="profile-photo"/>
+          <i class="fas fa-camera edit-icon"></i>
+        </label>
+        <input type="file" id="uploadPhoto" name="Photo" style="display:none;" accept="image/*" onchange="previewImage(event)">
+
+        <input type="text" name="Name" id="name" class="profile-input" value="Jane Doe" disabled required />
+        <select name="Sex" id="sex" class="profile-input" disabled>
+          <option selected>Female</option><option>Male</option><option>Prefer not to say</option>
+        </select>
+        <input type="number" name="Age" id="age" class="profile-input" value="35" disabled required />
+        <input type="text" name="Address" id="address" class="profile-input" value="Sta. Mesa, Manila" disabled required />
+
+        <div class="profile-buttons">
+          <button type="button" class="event-btn edit-btn" onclick="toggleEdit(true)">Edit</button>
+          <button type="button" class="event-btn save-btn" onclick="confirmSave()" style="display:none">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="profile-right">
+      <h2 class="section-title">Reported Issues</h2>
+
+        <!-- Sample Report Card -->
+        <!-- Report 1: Moderate -->
+        <div class="report-card priority-moderate">
+        <div class="report-preview" onclick="toggleReport(this)">
+            <p class="report-desc">Smoke spotted from burning plastics. Area affected: nearby school zone.</p>
+            <span class="read-more">Read More</span>
+        </div>
+        <div class="report-full">
+            <img src="~/images/garbage.png" class="report-img" />
+            <div class="badge-row">
+                <p><strong>Category:</strong> Air Pollution</p>
+                <p><strong>Priority:</strong> Moderate</p>
+                <p><strong>Hazard:</strong> Medium</p>
+            </div>
+            <p><strong>Location:</strong> Near Public School, Sta. Mesa</p>
+            <p><strong>Description:</strong> Smoke spotted from burning plastics. Area affected: nearby school zone.</p>
+            <span class="read-less" onclick="toggleReport(this)">Read Less</span>
+        </div>
+        </div>
+
+        <!-- Report 2: High -->
+        <div class="report-card priority-high">
+        <div class="report-preview" onclick="toggleReport(this)">
+            <p class="report-desc">Uncollected garbage attracting pests for several days on the sidewalk.</p>
+            <span class="read-more">Read More</span>
+        </div>
+        <div class="report-full">
+            <img src="~/images/garbage.png" class="report-img" />
+            <div class="badge-row">
+                <p><strong>Category:</strong> waste Management</p>
+                <p><strong>Priority:</strong> High</p>
+                <p><strong>Hazard:</strong> Severe</p>
+            </div>
+            <p><strong>Location:</strong> 123 P. Sanchez St., Sta. Mesa</p>
+            <p><strong>Description:</strong> Uncollected garbage attracting pests for several days on the sidewalk.</p>
+            <span class="read-less" onclick="toggleReport(this)">Read Less</span>
+        </div>
+        </div>
+
+        <!-- Report 3: Low -->
+        <div class="report-card priority-low">
+        <div class="report-preview" onclick="toggleReport(this)">
+            <p class="report-desc">Foul smell near drainage canal, suspect illegal dumping of waste.</p>
+            <span class="read-more">Read More</span>
+        </div>
+        <div class="report-full">
+            <img src="~/images/garbage.png" class="report-img" />
+            <div class="badge-row">
+                <p><strong>Category:</strong> Water Pollution</p>
+                <p><strong>Priority:</strong> Low</p>
+                <p><strong>Hazard:</strong> Severe</p>
+            </div>
+            <p><strong>Location:</strong> Riverbank Drive, Sta. Mesa</p>
+            <p><strong>Description:</strong> Foul smell near drainage canal, suspect illegal dumping of waste.</p>
+            <span class="read-less" onclick="toggleReport(this)">Read Less</span>
+        </div>
+        </div>
+
+        
+
+</div>
+
+  <div id="saveModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <h3>Save Changes?</h3>
+    <button type="button" class="modal-btn" onclick="submitForm()">Yes</button>
+      <button type="button" class="modal-btn" onclick="closeSaveModal()">Cancel</button>
+    </div>
+  </div>
+      </form>
+
+<script>
+    function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    function toggleDropdown() {
+        document.getElementById("profileDropdown").classList.toggle("show");
+    }
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.profile-icon')) {
+            const dropdown = document.getElementById("profileDropdown");
+            if (dropdown && dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        }
+    }
+    
+   function toggleEdit(editing) {
+  ['name','sex','age','address','uploadPhoto'].forEach(id=>{
+    document.getElementById(id).disabled = !editing;
+  });
+  document.querySelector('.edit-btn').style.display = editing ? 'none' : 'inline-block';
+  document.querySelector('.save-btn').style.display = editing ? 'inline-block' : 'none';
+}
+
+function confirmSave() {
+  document.getElementById('saveModal').style.display = 'flex';
+}
+
+function closeSaveModal() {
+  document.getElementById('saveModal').style.display = 'none';
+}
+
+function previewImage(event) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    document.getElementById('profileImage').src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+function submitForm() {
+  document.querySelector('.profile-form').submit();
+}
+
+function toggleReport(element) {
+  const reportCard = element.closest('.report-card');
+  reportCard.classList.toggle('active');
+}
+
+</script>
+</body>
+</html>

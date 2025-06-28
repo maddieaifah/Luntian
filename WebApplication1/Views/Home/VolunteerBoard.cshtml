@@ -1,0 +1,131 @@
+@{
+    ViewData["Title"] = "Volunteer Board";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUNTIAN | Volunteer Board</title>
+    <link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/board.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="hamburger" onclick="toggleSidebar()">☰</div>
+<div class="admin-container">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo-section">
+            <img src="~/images/logo only luntian.png" class="logo-img" />
+            <h2 class="logo-text">LUNTIAN</h2>
+        </div>
+        <nav>
+            <a asp-action="Dashboard" asp-controller="Home"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <a class="active" asp-action="VolunteerBoard" asp-controller="Home"><i class="fas fa-hand-holding-heart"></i> Volunteer Board</a>
+            <a asp-action="AdminProfile" asp-controller="Home"><i class="fas fa-user-cog"></i> Profile</a>
+        </nav>
+        <a asp-action="RoleSelection" asp-controller="Home" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-dashboard">
+        <h1 class="dashboard-title">Volunteer Opportunities</h1>
+
+<div class="report-post volunteer-post">
+  <div class="report-body">
+    <!-- Organizer Info -->
+    <div class="post-header">
+      <img src="https://ui-avatars.com/api/?name=Barangay+Admin" class="user-avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Barangay Admin</h3>
+      </div>
+    </div>
+
+    <!-- Event Image -->
+    <img src="~/images/pasig river.jpg" alt="Cleanup Activity" class="report-img" />
+
+    <!-- Event Title -->
+    <h3 class="event-title">Community Clean-Up Drive</h3>
+
+    <!-- Event Details -->
+    <div class="event-meta">
+      <p><i class="fas fa-map-marker-alt"></i> Zone 5, Barangay 360</p>
+      <p><i class="fas fa-calendar-alt"></i> June 30, 2025 at 8:00 AM</p>
+    </div>
+    <!-- Event Description -->
+    <p class="report-description">
+      Join us in clearing the riverbank of debris and raising awareness about waste segregation. Gloves and bags will be provided.
+    </p>
+  </div>
+</div>
+
+<div class="report-post volunteer-post">
+  <div class="report-body">
+    <div class="post-header">
+      <img src="https://ui-avatars.com/api/?name=Barangay+Admin" class="user-avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Barangay Admin</h3>
+      </div>
+    </div>
+
+    <img src="~/images/street.jpg" alt="Street Sweeping" class="report-img" />
+
+    <h3 class="event-title">Barangay Street Sweeping</h3>
+
+    <div class="event-meta">
+      <p><i class="fas fa-map-marker-alt"></i> Main Road, Barangay 360</p>
+      <p><i class="fas fa-calendar-alt"></i> July 5, 2025 at 6:30 AM</p>
+    </div>
+    <p class="report-description">
+      Help us sweep and clean the major walkways and roads to promote a safe and tidy environment for all residents.
+    </p>
+  </div>
+</div>
+
+<div class="report-post volunteer-post">
+  <div class="report-body">
+    <div class="post-header">
+      <img src="https://ui-avatars.com/api/?name=Barangay+Admin" class="user-avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Barangay Admin</h3>
+      </div>
+    </div>
+
+    <img src="~/images/market.jpg" alt="Market Cleaning" class="report-img" />
+
+    <h3 class="event-title">Public Market Sanitation Day</h3>
+
+    <div class="event-meta">
+      <p><i class="fas fa-map-marker-alt"></i> Public Market, Barangay 360</p>
+      <p><i class="fas fa-calendar-alt"></i> July 10, 2025 at 9:00 AM</p>
+    </div>
+    <p class="report-description">
+      Join the clean-up crew at our public market to help disinfect, mop, and keep our community marketplace hygienic.
+    </p>
+  </div>
+</div>
+            <!-- Add more posts using a foreach loop if dynamic -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+    }
+
+    document.addEventListener("click", function (e) {
+        const sidebar = document.getElementById("sidebar");
+        const hamburger = document.querySelector(".hamburger");
+        if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+</script>
+</body>
+</html>

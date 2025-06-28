@@ -1,0 +1,384 @@
+.profile-section {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.profile-left {
+  flex: 1;
+  max-width: 300px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sticky-profile {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.sticky-profile {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-icon {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    background: #235B2E;
+    color: white;
+    padding: 4px;
+    border-radius: 50%;
+    font-size: 0.8rem;
+}
+
+.profile-input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.profile-right {
+    flex: 2;
+    min-width: 300px;
+}
+
+.report-card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.report-card.active .report-full {
+  max-height: 500px; /* or as needed */
+  opacity: 1;
+}
+
+.report-preview {
+  transition: opacity 0.5s ease;
+}
+
+.report-card.active .report-preview {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* PRIORITY STYLES FOR COLOR-CODING REPORT CARDS */
+.priority-low {
+  background-color: #d4edda;       /* light green */
+  border-left: 6px solid #5cb85c;  /* green */
+}
+
+.priority-moderate {
+  background-color: #fff3cd;       /* light yellow */
+  border-left: 6px solid #f0ad4e;  /* orange */
+}
+
+.priority-high {
+  background-color: #f8d7da;       /* light red */
+  border-left: 6px solid #d9534f;  /* red */
+}
+
+.priority-urgent {
+  background-color: #f2dede;       /* deeper red/pink */
+  border-left: 6px solid #a94442;  /* dark red */
+}
+
+/* Read More/Read Less Toggle */
+.report-full {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+
+.read-more,
+.read-less {
+  color: #235B2E;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.report-id {
+    color: #235B2E;
+}
+
+.report-status {
+    background: rgba(0,0,0,0.05);
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-size: 0.85rem;
+}
+
+.report-img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 0.8rem 0;
+}
+
+.report-desc {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.profile-form {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-wrapper {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.profile-left {
+  flex: 0 0 300px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.sticky-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-title {
+  font-size: 1.5rem;
+  color: #235B2E;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.profile-right {
+  flex: 1;
+}
+
+.report-card {
+  background: #fff;
+  padding: 1rem;
+  border-left: 6px solid #d9534f;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.badge {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f9fa; /* soft gray bg */
+  display: inline-block;
+}
+
+.category-air,
+.category-waste,
+.category-water,
+.priority-high,
+.priority-moderate,
+.priority-low,
+.hazard-severe,
+.hazard-medium,
+.hazard-mild {
+  background-color: transparent;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.badge:hover {
+  background-color: #eaeaea;
+}
+
+
+/* MOBILE FIRST DESIGN FIXES */
+@media (max-width: 768px) {
+  .profile-wrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .profile-left, .profile-right {
+    width: 100%;
+    position: static !important;
+  }
+
+  .profile-title {
+    font-size: 1.25rem;
+  }
+
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-input {
+    font-size: 0.9rem;
+  }
+
+  .profile-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile-buttons button {
+    width: 100%;
+  }
+
+  .report-card {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    width: 90%;
+  }
+}
+html, body {
+  scroll-behavior: smooth;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.report-card {
+  animation: slideIn 0.6s ease;
+}
+
+.report-card.priority-low {
+  background-color: #d4edda;
+  border-left: 6px solid #5cb85c;
+}
+
+.report-card.priority-moderate {
+  background-color: #fff3cd;
+  border-left: 6px solid #f0ad4e;
+}
+
+.report-card.priority-high {
+  background-color: #f8d7da;
+  border-left: 6px solid #d9534f;
+}
+
+.report-card.priority-urgent {
+  background-color: #f2dede;
+  border-left: 6px solid #a94442;
+}
+.notif-icon {
+  position: relative;
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+  color: #235B2E;
+}
+
+.notif-icon .badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #d9534f;
+  color: #fff;
+  font-size: 0.65rem;
+  padding: 3px 6px;
+  border-radius: 50%;
+  font-weight: bold;
+}

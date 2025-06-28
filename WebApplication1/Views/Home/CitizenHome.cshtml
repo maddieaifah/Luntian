@@ -1,0 +1,185 @@
+@{
+    ViewData["Title"] = "Citizen Home";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUNTIAN | Home</title>
+    <link rel="stylesheet" href="~/css/citizens.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="navbar">
+  <!-- Logo Section -->
+  <div class="logo-section">
+    <img src="~/images/logo only luntian.png" class="logo-img" />
+    <span class="logo-text">LUNTIAN</span>
+  </div>
+
+  <!-- Hamburger (mobile only) -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="nav-links" id="navLinks">
+    <a asp-action="CitizenHome" asp-controller="Home"><i class="fas fa-home"></i> Home</a>
+    <a asp-action="ReportIssue" asp-controller="Home"><i class="fas fa-exclamation-circle"></i> Report Issue</a>
+    <a asp-action="Notification" asp-controller="Home" class="notif-icon">
+        <i class="fas fa-bell"></i>
+        <span class="badge">3</span> <!-- sample unread count -->
+        </a>
+
+    <!-- Profile Dropdown -->
+    <div class="profile-container">
+      <img src="~/images/profile.png" class="profile-icon" onclick="toggleDropdown()" />
+      <div class="profile-dropdown" id="profileDropdown">
+        <a asp-action="Profile" asp-controller="Home"><i class="fas fa-user-circle"></i> Profile</a>
+        <a asp-action="RoleSelection" asp-controller="Home"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="main-content">
+        <h2 class="section-title">Volunteer Events</h2>
+        <div class="card-grid">
+        @for (int i = 0; i < 10; i++)
+        {
+          <div class="event-card" onclick="handleCardClick(this)">
+            <img src="~/images/volunteer.jpg" alt="Volunteer Event" class="event-image" />
+            
+      <div class="event-details">
+        <div class="event-title">Clean-Up Drive</div>
+        <div class="event-desc short">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
+        <button class="toggle-desc" onclick="toggleDescription(this)">Read more</button>
+        <button class="event-btn" onclick="event.stopPropagation(); joinEvent(this)">Join Now</button>
+        </div>
+      </div>
+      }
+
+  <div id="successModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h3 id="modalMessage">Success</h3>
+      <button onclick="closeModal()" class="modal-btn">Close</button>
+    </div>
+  </div>
+
+            }
+        </div>
+    </div>
+<script>
+  function toggleMenu() {
+    const navLinks = document.getElementById("navLinks");
+    navLinks.classList.toggle("show");
+  }
+
+  function toggleDropdown() {
+    document.getElementById("profileDropdown").classList.toggle("show");
+  }
+
+  window.onclick = function(event) {
+    if (!event.target.matches('.profile-icon')) {
+      const dropdown = document.getElementById("profileDropdown");
+      if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+      }
+    }
+  }
+let joinedEvents = new Set();
+
+// Join button logic
+function joinEvent(button) {
+  const card = button.closest('.event-card');
+  const title = card.querySelector('.event-title')?.innerText || "the event";
+
+  if (joinedEvents.has(title)) {
+    showModal("You’ve already joined this event!");
+  } else {
+    joinedEvents.add(title);
+    showModal(`You have successfully joined ${title}!`);
+  }
+}
+
+// Modal display
+function showModal(message) {
+  const modal = document.getElementById('successModal');
+  const modalMessage = document.getElementById('modalMessage');
+
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 3000);
+}
+
+// Close modal
+function closeModal() {
+  document.getElementById('successModal').style.display = 'none';
+}
+
+// Click to expand on mobile
+function handleCardClick(card) {
+  if (window.innerWidth <= 768) {
+    card.classList.toggle('expanded');
+  }
+}
+
+// Reset expanded cards on resize
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.querySelectorAll('.event-card.expanded').forEach(card => {
+      card.classList.remove('expanded');
+    });
+  }
+});
+
+function showModal(message) {
+  const modal = document.getElementById('successModal');
+  const modalMessage = document.getElementById('modalMessage');
+
+  modalMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  setTimeout(() => {
+    modal.style.display = 'none';
+  }, 3000);
+}
+function closeModal() {
+  const modal = document.getElementById('successModal');
+  modal.style.display = 'none';
+}
+
+function toggleDescription(btn) {
+  const desc = btn.previousElementSibling;
+  const isShort = desc.classList.contains("short");
+
+  if (isShort) {
+    desc.classList.remove("short");
+    desc.classList.add("full");
+    btn.textContent = "Read less";
+  } else {
+    desc.classList.remove("full");
+    desc.classList.add("short");
+    btn.textContent = "Read more";
+  }
+}
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Select Role";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUNTIAN | Select Role</title>
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body class="login-page">
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <img src="~/images/logo only luntian.png" alt="LUNTIAN Logo" class="logo" />
+            <h1>LUNTIAN</h1>
+        </div>
+
+        <!-- Right Panel (Form with leafy background) -->
+        <div class="form-panel">
+            <form asp-action="Login" asp-controller="Home" method="get">
+                <img src="~/images/logo only luntian.png" class="icon" alt="LUNTIAN Icon" />
+                <h2>Select Your Role</h2>
+
+            <div class="input-icon">
+            <i class="fa fa-users"></i>
+            <select name="role" required>
+                <option value="">Continue as...</option>
+                <option value="Citizen">👤 Citizen</option>
+                <option value="Official">🏛️ Official</option>
+            </select>
+            </div>
+
+                <button type="submit" class="role-button">Continue</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

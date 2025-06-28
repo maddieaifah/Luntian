@@ -1,0 +1,184 @@
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f7f7;
+
+    .notification-wrapper {
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 1.75rem;
+        color: #235B2E;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .notification-card {
+      background: #fff;
+      border-left: 6px solid #5cb85c;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .notification-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .notification-card.in-progress {
+      border-left-color: #f0ad4e;
+    }
+
+    .notification-card.solved {
+      border-left-color: #5bc0de;
+    }
+
+    .notif-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .notif-actions {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .view-btn, .delete-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .view-btn {
+      background-color: #235B2E;
+      color: white;
+    }
+
+    .view-btn:hover {
+      background-color: #1b4424;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background-color: #b02a37;
+    }
+
+    .status-label {
+      background-color: #f0ad4e;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.85rem;
+    }
+
+    /* Modals */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      animation: popUp 0.4s ease;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #999;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .notification-wrapper {
+    padding: 1rem;
+  }
+
+  .notification-card {
+    flex-direction: column;
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+
+  .notif-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .notif-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .view-btn, .delete-btn {
+    width: 100%;
+  }
+}
+  }
+
+  @keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    }
+
+    .notification-card {
+    animation: slideIn 0.6s ease-out;
+    }

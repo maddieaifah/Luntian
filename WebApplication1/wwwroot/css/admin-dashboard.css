@@ -1,0 +1,523 @@
+/* General Layout */
+body {
+    margin: 0;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    overflow: hidden;
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #328d6e;
+    color: white;
+    width: 240px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo-img {
+    width: 60px;
+    height: 60px;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.sidebar nav a, .sidebar .logout {
+    display: block;
+    color: white;
+    padding: 12px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: 0.2s;
+}
+
+.sidebar nav a:hover, .sidebar .logout:hover {
+    background-color: #267356;
+}
+
+.logout {
+    margin-top: auto;
+}
+
+/* Hamburger */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    font-size: 24px;
+    z-index: 1002;
+    cursor: pointer;
+    color: #328d6e;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Main dashboard offset */
+.main-dashboard {
+    margin-left: 240px;
+    padding: 30px 20px;
+    width: calc(100% - 240px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.dashboard-header {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 16px;
+    margin-left: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.dashboard-heading-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-title {
+    font-size: 28px;
+    margin: 0;
+    margin-left: 0; /* reset margin-left */
+    padding-top: 10px;
+}
+
+.dashboard-content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* 👈 align to the left */
+    gap: 24px; /* 👈 tighter spacing */
+}
+
+.dashboard-left {
+    width: 100%;
+    max-width: 600px;     /* ✅ Limit width for consistency */
+    margin: 0 auto;        /* ✅ Center horizontally */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.dashboard-datetime {
+    font-size: 14px;
+    color: #666;
+    margin-top: 4px;
+    margin-left: 2px;
+    text-align: left;
+}
+
+/* On small screens, center-align the title + time */
+@media (max-width: 768px) {
+    .dashboard-header {
+        align-items: center;
+    }
+
+    .dashboard-heading-group {
+        text-align: center;
+    }
+
+    .dashboard-datetime {
+        text-align: center;
+        margin-left: 0;
+    }
+}
+
+.chart-section, .progress-section, .deadline-alert {
+    background-color: white;
+    padding: 12px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    animation: fade-in 0.6s ease-in-out;
+}
+
+canvas {
+    width: 250px !important;
+    height: 250px !important;
+    margin: 0 auto;
+    display: block;
+    background: transparent;
+    padding: 0;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.progress-rows {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.progress-box {
+    flex: 1;
+    min-width: 100px;
+    
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+    animation: slide-up 0.6s ease;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.progress-box:hover {
+    transform: scale(1.03);
+}
+
+.resolved { background-color: #00669b; }
+.inprogress { background-color: #fcba00; color: #333; }
+.pending { background-color: #d72727; }
+
+.deadline-alert {
+    font-size: 13px;
+    background-color: #fff8e1;
+    border-left: 4px solid #ffc107;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    animation: fade-in 0.5s ease-in;
+}
+
+.deadline-alert::before {
+    content: '⏰';
+    font-size: 16px;
+}
+
+/* Notifications */
+.dashboard-right {
+    width: 40%;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+   /* margin-left: -20px; /* 👈 nudged left */
+}
+
+.notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 0 4px;
+}
+
+/* Mark all as read button */
+.mark-read-btn {
+    background-color: white;
+    color: #328d6e;
+    border: none;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.mark-read-btn:hover {
+    background-color: #e3f2ed;
+}
+
+/* Time below each notif */
+.notif-time {
+    display: block;
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.notif-box {
+    background-color: #90c67c; /* soft green background */
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+    animation: fade-in 0.6s ease;
+    border: none;
+}
+
+.notif-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #d4e8dd;
+    padding-left: 6px;
+}
+
+/* Notification Card States */
+.notif-card {
+    background-color: white;
+    border-left: 4px solid #1f9254;
+    border-radius: 6px;
+    padding: 12px 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    animation: slide-in-right 0.4s ease forwards;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.notif-card.unread {
+    background-color: #e9f9f1;
+}
+
+.notif-card:hover {
+    transform: translateY(-3px);
+    background-color: #f4fdf9;
+}
+
+.notif-card:hover {
+    background-color: #dff5eb;
+    transform: translateY(-3px);
+}
+
+.notif-card p {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.notif-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.view-btn, .delete-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.view-btn {
+    background-color: #1f9254;
+    color: white;
+}
+
+.view-btn:hover {
+    background-color: #137a42;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Animations */
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slide-up {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .admin-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        left: -100%;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .main-dashboard {
+        margin-left: 0;
+        padding: 20px;
+        width: 100%;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .dashboard-content {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .dashboard-left,
+    .dashboard-right {
+        width: 100%;
+        max-width: 640px; /* ✅ Controls max size */
+        margin: 0 auto;    /* ✅ Centers the content */
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .chart-section,
+    .progress-section,
+    .deadline-alert,
+    .notif-box {
+        margin: 0 0 16px 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    canvas {
+        width: 200px !important;
+        height: 200px !important;
+        margin: 0 auto;
+    }
+
+    .chart-legend {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .progress-rows {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Fix sidebar overlap on desktop */
+@media (min-width: 901px) {
+    .main-dashboard {
+        margin-left: 240px;
+    }
+
+    .dashboard-content {
+        flex-direction: row;
+        justify-content: center; /* ✅ center both columns */
+        gap: 40px;
+    }
+
+    .dashboard-left {
+        width: 60%;
+        max-width: 620px;
+    }
+
+    .dashboard-right {
+        width: 40%;
+        max-width: 400px;
+    }
+}
+
+/* Sidebar active fix (mobile) */
+.sidebar {
+    transition: left 0.3s ease;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+
+/* Resize chart to fit better */
+canvas {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto;
+    display: block;
+    background: transparent;
+    padding: 0;
+}
+
+/* Optional: reduce padding for chart section */
+.chart-section, .progress-section, .deadline-alert {
+    padding: 12px 14px;
+}
+
+/* Fit progress boxes tighter */
+.progress-box {
+    padding: 10px;
+    font-size: 13px;
+}
+
+/* Deadline alert smaller and compact */
+.deadline-alert {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+
+.sidebar {
+    transition: left 0.3s ease;
+}
+
+.notif-actions button,
+.notif-actions a {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.notif-actions button:hover,
+.notif-actions a:hover {
+    transform: scale(1.05);
+}
+
+@keyframes slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.notif-card {
+    animation: slide-in-right 0.4s ease forwards;
+}

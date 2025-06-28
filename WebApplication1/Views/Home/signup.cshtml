@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Sign Up";
+    Layout = null;
+    var selectedRole = ViewBag.SelectedRole as string ?? "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUNTIAN | Sign Up</title>
+  <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+<body class="signup-page">
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <img src="~/images/logo only luntian.png" alt="LUNTIAN Logo" class="logo" />
+      <h1>LUNTIAN</h1>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="form-panel">
+    <form>
+      <img src="~/images/logo only luntian.png" class="icon" alt="LUNTIAN Icon" />
+      <h2>SIGN UP</h2>
+
+      <input type="hidden" name="role" value="@selectedRole" />
+
+    <div class="row">
+      <div class="input-icon half">
+        <i class="fa fa-user"></i>
+        <input type="text" name="firstname" placeholder="First Name" required />
+      </div>
+      <div class="input-icon half">
+        <i class="fa fa-user"></i>
+        <input type="text" name="lastname" placeholder="Last Name" required />
+      </div>
+    </div>
+
+      <div class="input-icon">
+        <i class="fa fa-envelope"></i>
+        <input type="email" placeholder="example@luntian.org" required />
+      </div>
+
+      <div class="input-icon">
+        <i class="fa fa-lock"></i>
+        <input type="password" name="password" placeholder="Password" required />
+      </div>
+
+      <button type="submit">SIGN UP</button>
+
+      <div class="form-links">
+        <p>Already a member? <a asp-action="Login" asp-controller="Home">Sign In</a></p>
+        <p><a asp-action="RoleSelection" asp-controller="Home">← Back to Role Selection</a></p>
+      </div>
+    </form>
+
+    </div>
+  </div>
+</body>
+</html>

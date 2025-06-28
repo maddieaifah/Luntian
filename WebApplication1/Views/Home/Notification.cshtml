@@ -1,0 +1,139 @@
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LUNTIAN | Notifications</title>
+  <link rel="stylesheet" href="~/css/citizens.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/notification.css" asp-append-version="true" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<div class="navbar">
+  <div class="logo-section">
+    <img src="~/images/logo only luntian.png" class="logo-img" />
+    <span class="logo-text">LUNTIAN</span>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+  <div class="nav-links" id="navLinks">
+    <a asp-action="CitizenHome" asp-controller="Home"><i class="fas fa-home"></i> Home</a>
+    <a asp-action="ReportIssue" asp-controller="Home"><i class="fas fa-exclamation-circle"></i> Report Issue</a>
+    <a asp-action="Notification" asp-controller="Home" class="notif-icon">
+        <i class="fas fa-bell"></i>
+        <span class="badge">3</span> <!-- sample unread count -->
+        </a>
+
+    <div class="profile-container">
+      <img src="~/images/profile.png" class="profile-icon" onclick="toggleDropdown()" />
+      <div class="profile-dropdown" id="profileDropdown">
+        <a asp-action="Profile" asp-controller="Home"><i class="fas fa-user-circle"></i> Profile</a>
+        <a asp-action="RoleSelection" asp-controller="Home"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Notification Content -->
+<div class="notification-wrapper">
+  <h2 class="section-title">Notifications</h2>
+
+  <!-- Report Submitted -->
+  <div class="notification-card submitted">
+    <div class="notif-header">
+      <strong>Report Submitted</strong>
+      <span class="report-id">#A00123</span>
+    </div>
+    <p>Your report has been successfully submitted.</p>
+    <div class="notif-actions">
+      <button onclick="openModal('submittedModal')" class="view-btn">View</button>
+      <button class="delete-btn">Delete</button>
+    </div>
+  </div>
+
+  <!-- Report In Progress -->
+  <div class="notification-card in-progress">
+    <div class="notif-header">
+      <strong>Report In Progress</strong>
+      <span class="report-id">#A00124</span>
+    </div>
+    <p>Your report is currently being addressed by officials.</p>
+    <div class="notif-actions">
+      <span class="status-label">In Progress</span>
+      <button class="delete-btn">Delete</button>
+    </div>
+  </div>
+
+  <!-- Report Solved -->
+  <div class="notification-card solved">
+    <div class="notif-header">
+      <strong>Report Solved</strong>
+      <span class="report-id">#A00125</span>
+    </div>
+    <p>Your report has been resolved successfully.</p>
+    <div class="notif-actions">
+      <button onclick="openModal('solvedModal')" class="view-btn">View</button>
+      <button class="delete-btn">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal: Submitted -->
+<div id="submittedModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('submittedModal')">&times;</span>
+    <h3>Submitted Report Details</h3>
+    <img src="~/images/garbage.png" class="modal-img"/>
+    <p><strong>Category:</strong> Waste</p>
+    <p><strong>Priority:</strong> Moderate</p>
+    <p><strong>Hazard Level:</strong> Mild</p>
+    <p><strong>Description:</strong> Garbage left unattended near playground.</p>
+    <p><strong>Location:</strong> Zone 5, Sta. Mesa, Manila</p>
+  </div>
+</div>
+
+<!-- ✅ Modal: Solved -->
+<div id="solvedModal" class="modal-overlay">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('solvedModal')">&times;</span>
+    <h3>Resolved Report Summary</h3>
+    <img src="~/images/clean.jpg" class="modal-img"/>
+    <p><strong>Description:</strong> The garbage was collected and area cleaned thoroughly.</p>
+  </div>
+</div>
+
+<!-- ✅ JavaScript -->
+<script>
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+  }
+
+  function toggleDropdown() {
+    document.getElementById("profileDropdown").classList.toggle("show");
+  }
+
+  window.onclick = function (event) {
+    if (!event.target.matches('.profile-icon')) {
+      const dropdown = document.getElementById("profileDropdown");
+      if (dropdown && dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+      }
+    }
+  }
+
+  function openModal(id) {
+    document.getElementById(id).style.display = "flex";
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).style.display = "none";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+@{
+    ViewData["Title"] = "Solve Issue";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUNTIAN | Solve Issue</title>
+  <link rel="stylesheet" href="~/css/admin-dashboard.css" asp-append-version="true" />
+  <link rel="stylesheet" href="~/css/solveissue.css" asp-append-version="true" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="hamburger" onclick="toggleSidebar()">☰</div>
+
+  <div class="admin-container">
+    <div class="sidebar" id="sidebar">
+      <div class="logo-section">
+        <img src="~/images/logo only luntian.png" class="logo-img" />
+        <h2 class="logo-text">LUNTIAN</h2>
+      </div>
+      <nav>
+        <a asp-action="Dashboard" asp-controller="Home"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a asp-action="VolunteerBoard" asp-controller="Home"><i class="fas fa-hand-holding-heart"></i> Volunteer Board</a>
+        <a asp-action="AdminProfile" asp-controller="Home"><i class="fas fa-user-cog"></i> Profile</a>
+      </nav>
+      <a asp-action="RoleSelection" asp-controller="Home" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+<div class="main-dashboard">
+    <div class="solve-section">
+        <div class="solve-left">
+            <video id="video" autoplay playsinline></video>
+            <img id="capturedImage" />
+            <div class="btn-group">
+                <button id="captureBtn" class="capture-btn">Capture</button>
+                <button id="retakeBtn" class="retake-btn" style="display: none;">Retake</button>
+            </div>
+        </div>
+        <div class="solve-right">
+            <label for="description"><strong>Description of Solution:</strong></label>
+            <textarea id="description" placeholder="Describe the resolution taken..."></textarea>
+            <div class="btn-group">
+                <button class="view-btn">View Report</button>
+                <button class="solve-btn" id="solveBtn" disabled>Mark as Solved</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to mark this as solved?</p>
+    <div class="modal-buttons">
+      <button id="confirmYes">Yes</button>
+      <button id="confirmNo">No</button>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    const video = document.getElementById('video');
+    const img = document.getElementById('capturedImage');
+    const captureBtn = document.getElementById('captureBtn');
+    const retakeBtn = document.getElementById('retakeBtn');
+    const desc = document.getElementById('description');
+    const solveBtn = document.getElementById('solveBtn');
+
+    let stream, imageTaken = false;
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(s => { stream = s; video.srcObject = s; });
+
+    function validate() {
+      solveBtn.disabled = !(imageTaken && desc.value.trim().length);
+    }
+
+    captureBtn.onclick = () => {
+      const c = document.createElement('canvas');
+      c.width = video.videoWidth; c.height = video.videoHeight;
+      c.getContext('2d').drawImage(video, 0, 0);
+      img.src = c.toDataURL('image/png');
+      img.style.display = 'block';
+      video.style.display = 'none';
+      captureBtn.style.display = 'none';
+      retakeBtn.style.display = 'inline-block';
+      stream.getTracks().forEach(t => t.stop());
+      imageTaken = true; validate();
+    };
+
+    retakeBtn.onclick = () => {
+      img.style.display = 'none';
+      video.style.display = 'block';
+      captureBtn.style.display = 'inline-block';
+      retakeBtn.style.display = 'none';
+      navigator.mediaDevices.getUserMedia({ video: true }).then(s => { stream = s; video.srcObject = s; });
+      imageTaken = false; validate();
+    };
+
+    desc.oninput = validate;
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+    document.addEventListener('click', e => {
+      const sb = document.getElementById('sidebar');
+      const hb = document.querySelector('.hamburger');
+      if (!sb.contains(e.target) && !hb.contains(e.target)) sb.classList.remove('active');
+    });
+
+    const confirmModal = document.getElementById('confirmModal');
+  const confirmYes = document.getElementById('confirmYes');
+  const confirmNo = document.getElementById('confirmNo');
+
+  document.getElementById('solveBtn').addEventListener('click', () => {
+    confirmModal.style.display = 'block';
+  });
+
+  confirmNo.addEventListener('click', () => {
+    confirmModal.style.display = 'none';
+  });
+
+  confirmYes.addEventListener('click', () => {
+    window.location.href = '/Home/InProgress'; // adjust to your actual route
+  });
+
+  window.onclick = function (event) {
+    if (event.target === confirmModal) {
+      confirmModal.style.display = "none";
+    }
+  };
+  </script>
+</body>
+</html>

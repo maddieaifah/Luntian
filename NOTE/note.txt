@@ -1,0 +1,9 @@
+ I've set up the form to post to UpdateProfile in the HomeController, but I'm getting a 405 error when clicking save can be seen in HomeController.cs
+ [HttpPost]
+public IActionResult UpdateProfile(ProfileViewModel model)
+{
+    // Handle update logic here
+    return RedirectToAction("Profile");
+}
+
+

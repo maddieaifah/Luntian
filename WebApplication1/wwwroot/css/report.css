@@ -1,0 +1,248 @@
+/* Report issue */
+/* Main Report Section */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.fullscreen-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f0f0f0;
+}
+
+.report-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+/* Grid Layout */
+.report-form-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.left-column, .right-column {
+  width: 50%;
+  position: relative;
+}
+
+.left-column label {
+  font-weight: 600;
+  color: #235B2E;
+  margin-bottom: 0.5rem;
+}
+
+#cameraStream {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  transition: opacity 0.3s ease;
+}
+
+#previewImage {
+  display: none;
+  width: 100%;
+  height: 300px; /* Match video */
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  margin-top: 1rem;
+}
+
+
+/* Camera & Preview Styling */
+#cameraStream,
+#previewImage {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  display: block;
+}
+
+
+#previewImage {
+  margin-top: 1rem;
+}
+
+.capture-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Button Styles */
+.event-btn {
+  align-self: center;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #235B2E;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.event-btn:hover {
+  background-color: #1c4726;
+}
+
+/* Form Group Styling */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #235B2E;
+}
+
+.form-group textarea,
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+/* Submit Button Spacing */
+.right-column .event-btn {
+  margin-top: 1.5rem;
+}
+
+/* Canvas for debugging (if shown) */
+#snapshot {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .report-form-grid {
+    flex-direction: column;
+  }
+
+  .left-column, .right-column {
+    width: 100%;
+  }
+}
+
+#snapshot {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+
+/* Better Dropdown Styling */
+/* Container layout */
+.dropdown-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.dropdown-row .form-group {
+  flex: 1;
+}
+
+.dropdown-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container for 2 dropdowns side by side */
+.form-group-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+/* Ensure each dropdown takes up half */
+.form-group-row .form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #235B2E;
+  margin-bottom: 0.5rem;
+}
+
+.form-group select:focus {
+  border-color: #90c67c;
+  box-shadow: 0 0 0 3px rgba(144, 198, 124, 0.2);
+}
+
+
+/* Styling for select */
+/* Shared Select Style */
+.styled-select {
+  appearance: none;
+  border: 2px solid #235B2E;
+  background-color: #fff;
+  color: #235B2E;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.styled-select option {
+  background-color: #fff; /* keep option list white */
+  color: #235B2E;
+}
+
+/* Optional: Keep selected text readable */
+.styled-select:focus {
+  outline: none;
+  box-shadow: 0 0 5px #235B2E;
+}
+
+/* Responsive: stack dropdowns on small screens */
+@media (max-width: 768px) {
+  .form-group-row {
+    flex-direction: column;
+  }
+}
+
+/* Optional: give the entire select a subtle tint based on selected option */
+.styled-select[data-selected-color] {
+  background-color: var(--selected-color);
+}
+
+.colored-select {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

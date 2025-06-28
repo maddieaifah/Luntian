@@ -1,0 +1,348 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background: #f3f5f7;
+    margin: 0;
+    color: #333;
+}
+
+/* MAIN DASHBOARD AREA */
+.main-dashboard {
+    margin-right: 0; /* Add this if needed */
+    padding: 40px 30px; /* balanced padding left and right */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+.solve-section {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+
+.solve-left, .solve-right {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.solve-left video,
+.solve-left img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #e0e0e0;
+}
+
+#capturedImage {
+    display: none;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    margin-bottom: 16px;
+}
+
+/* BUTTONS */
+.btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.capture-btn {
+    background-color: #328d6e;
+    color: white;
+}
+.capture-btn:hover {
+    background-color: #276c56;
+}
+
+.retake-btn {
+    background-color: #e67e22;
+    color: white;
+}
+.retake-btn:hover {
+    background-color: #d76c10;
+}
+
+.view-btn {
+    background-color: #4a90e2;
+    color: white;
+}
+.view-btn:hover {
+    background-color: #3b7bd0;
+}
+
+.solve-btn {
+    background-color: #1f9254;
+    color: white;
+}
+.solve-btn:hover {
+    background-color: #157a3f;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* HAMBURGER */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    background: white;
+    color: #328d6e;
+    padding: 6px 10px;
+    border-radius: 5px;
+    z-index: 1001;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 900px) {
+    .hamburger {
+        display: block;
+    }
+
+    .main-dashboard {
+        margin-left: 0 auto;
+        padding-top: 70px;
+    }
+
+    .solve-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sidebar {
+        left: -100%;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+}
+
+
+.solve-left, .solve-right {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 900px) {
+    .main-dashboard {
+        margin-left: 0;
+        padding: 150px 16px 40px 16px; /* top padding for hamburger space, side/bottom spacing */
+        height: auto;
+        box-sizing: border-box;
+    }
+
+    .solve-section {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .solve-left, .solve-right {
+        width: 100%;
+        max-width: 500px;
+        margin-bottom: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        width: 100%;
+        box-sizing: border-box;
+        resize: vertical;
+    }
+}
+
+.solve-right {
+    flex: 1;
+    max-width: 600px; /* ✅ limits how wide it can go */
+    padding: 20px 20px 16px 20px; /* less bottom padding */
+    margin: 0 auto;   /* ✅ centers it */
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+}
+
+
+.solve-right,
+.form-group textarea {
+    box-sizing: border-box;
+}
+
+textarea#description {
+    width: 100%;
+    max-width: 100%;
+    height: 150px;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: vertical;
+    box-sizing: border-box;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .solve-right {
+        padding: 16px;
+        width: 100%;
+    }
+
+    .form-group textarea {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 901px) {
+  .main-dashboard {
+    padding-left: calc(75px + 30px); /* sidebar width + visual spacing */
+    padding-right: 30px;
+  }
+}
+
+/* === Modal Styling === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  animation: slideIn 0.3s ease-out;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+
+.modal-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 24px;
+  gap: 16px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#confirmYes {
+  background-color: #1f9254;
+  color: #fff;
+}
+#confirmYes:hover {
+  background-color: #157a3f;
+}
+
+#confirmNo {
+  background-color: #ccc;
+  color: #333;
+}
+#confirmNo:hover {
+  background-color: #bbb;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.modal-content {
+  animation: fadeInScale 0.2s ease-out;
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 20px 16px;
+  }
+
+  .modal-text {
+    font-size: 16px;
+  }
+}
