@@ -43,7 +43,7 @@
     <!-- Main Content -->
     <div class="report-section">
         <h2 class="section-title">Report Issue</h2>
-        <form class="report-form" enctype="multipart/form-data" method="post" asp-action="ReportIssue" onsubmit="handleSubmit(event)">
+        <form class="report-form" method="post" asp-controller="Report" asp-action="Submit" enctype="multipart/form-data">
   <div class="report-form-grid">
     <!-- Left Column -->
     <div class="left-column">
@@ -68,7 +68,7 @@
 <!-- Category Dropdown (full row, updated styling) -->
 <div class="form-group">
   <label for="category">Category</label>
-  <select id="category" name="category" required class="styled-select">
+  <select id="category" name="Category" required class="styled-select">
     <option disabled selected>Select Category</option>
     <optgroup label="Environmental">
       <option value="Garbage">Garbage</option>
@@ -86,7 +86,7 @@
 <div class="dropdown-row">
   <div class="form-group">
     <label for="priority">Priority Level</label>
-  <select id="priority" name="priority" class="styled-select colored-select" required onchange="updateSelectColor(this)">
+  <select id="priority" name="Priority" class="styled-select colored-select" required onchange="updateSelectColor(this)">
     <option disabled selected>Select Priority</option>
     <option value="Low" data-color="#5cb85c">Low</option>
     <option value="Moderate" data-color="#f0ad4e">Moderate</option>
@@ -97,7 +97,7 @@
 
   <div class="form-group">
     <label for="hazard">Hazardous Level</label>
-    <select id="hazard" name="hazard" class="styled-select colored-select" required onchange="updateSelectColor(this)">
+    <select id="hazard" name="Hazard" class="styled-select colored-select" required onchange="updateSelectColor(this)">
       <option disabled selected>Select Hazard Level</option>
       <option value="Non-Hazardous" data-color="#5bc0de">Non-Hazardous</option>
       <option value="Mild" data-color="#f0ad4e">Mild</option>
@@ -111,7 +111,7 @@
   <!-- Description -->
   <div class="form-group">
     <label for="issueDescription">Describe the Issue</label>
-    <textarea id="issueDescription" name="description" rows="4" placeholder="Provide details here..." required></textarea>
+    <textarea id="issueDescription" name="Description" rows="4" placeholder="Provide details here..." required></textarea>
   </div>
 
   <div class="form-group">
@@ -121,7 +121,7 @@
     <input type="hidden" id="lat" name="Latitude" />
     <input type="hidden" id="lon" name="Longitude" />
 
-    <input type="text" id="locationInput" name="location" placeholder="Enter location or leave blank" />
+    <input type="text" id="locationInput" name="Address" placeholder="Enter location or leave blank" />
   </div>
 
   <button type="submit" class="event-btn">Submit Report</button>

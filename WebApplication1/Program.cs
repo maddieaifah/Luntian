@@ -1,5 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using WebApplication1.Data;
+
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        x => x.UseNetTopologySuite()
+    ));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -12,7 +23,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-//checking commit
+//checking commit - naka-commit na
 app.UseHttpsRedirection();
 app.UseRouting();
 
