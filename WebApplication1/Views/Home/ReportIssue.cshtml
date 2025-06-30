@@ -116,6 +116,11 @@
 
   <div class="form-group">
     <label for="locationInput">Location</label>
+
+    <!-- To contain latitude and longitude data -->
+    <input type="hidden" id="lat" name="Latitude" />
+    <input type="hidden" id="lon" name="Longitude" />
+
     <input type="text" id="locationInput" name="location" placeholder="Enter location or leave blank" />
   </div>
 
@@ -209,6 +214,10 @@ function retakePhoto() {
         const data = await response.json();
         const locationInput = document.getElementById('locationInput');
         locationInput.value = data.display_name || `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`;
+        //For sending latitude and longitude from the hidden inputs
+        document.getElementById('lat').value = latitude;
+        document.getElementById('lon').value = longitude;
+
       } catch (error) {
         console.error("Error fetching address:", error);
       }
