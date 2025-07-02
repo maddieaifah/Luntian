@@ -86,7 +86,7 @@
 <div class="dropdown-row">
   <div class="form-group">
     <label for="priority">Priority Level</label>
-  <select id="priority" name="Priority" class="styled-select colored-select" required onchange="updateSelectColor(this)">
+  <select id="priority" name="PriorityLevel" class="styled-select colored-select" required onchange="updateSelectColor(this)">
     <option disabled selected>Select Priority</option>
     <option value="Low" data-color="#5cb85c">Low</option>
     <option value="Moderate" data-color="#f0ad4e">Moderate</option>
@@ -97,7 +97,7 @@
 
   <div class="form-group">
     <label for="hazard">Hazardous Level</label>
-    <select id="hazard" name="Hazard" class="styled-select colored-select" required onchange="updateSelectColor(this)">
+    <select id="hazard" name="HazardLevel" class="styled-select colored-select" required onchange="updateSelectColor(this)">
       <option disabled selected>Select Hazard Level</option>
       <option value="Non-Hazardous" data-color="#5bc0de">Non-Hazardous</option>
       <option value="Mild" data-color="#f0ad4e">Mild</option>
@@ -121,7 +121,7 @@
     <input type="hidden" id="lat" name="Latitude" />
     <input type="hidden" id="lon" name="Longitude" />
 
-    <input type="text" id="locationInput" name="Address" placeholder="Enter location or leave blank" />
+    <input type="text" id="locationInput" name="LocationText" placeholder="Enter location or leave blank" />
   </div>
 
   <button type="submit" class="event-btn">Submit Report</button>

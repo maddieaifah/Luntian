@@ -1,50 +1,48 @@
 using System.ComponentModel.DataAnnotations;
 using NetTopologySuite.Geometries;
 
-public class Report
+namespace WebApplication1.Models{
+    public class Report
 {
-    public int Id { get; set; }
+    // For the unique report ID
+    public int ReportId { get; set; }
 
+    // For citizen referencing the reporter
     [Required]
-    public int CitizenId { get; set; }  // Reporter FK
+    public int CitizenId { get; set; }
+    public Citizen Citizen { get; set; } = null!;
+
+    public int? BarangayId { get; set; }
+    public Barangay? Barangay { get; set; }
 
     [Required]
     public string Category { get; set; } = string.Empty;
 
     [Required]
-    public string Priority { get; set; } = string.Empty;
+    public string PriorityLevel { get; set; } = string.Empty;
 
     [Required]
-    public string Hazard { get; set; } = string.Empty;
+    public string HazardLevel { get; set; } = string.Empty;
 
     [Required]
     public string Description { get; set; } = string.Empty;
 
-    public string Address { get; set; } = string.Empty;  // formerly "Location" (human-readable)
-
-    public string ImagePath { get; set; } = string.Empty;
-
-    public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
-
-    public double Latitude { get; set; }
-
-    public double Longitude { get; set; }
-
-    // 🌐 Geometry-based location
-    public Point? GeoPoint { get; set; }  // for NetTopologySuite
-
-    // 💡 FK to Barangay via spatial query
-    public int? BarangayId { get; set; }
-    public Barangay? Barangay { get; set; }
-
-    // ✅ AI/Machine Learning Tags
-    public bool IsBlurry { get; set; }
-    public bool IsNSFW { get; set; }
-
-    public string AutoTags { get; set; } = string.Empty;  // e.g., "trash, sewage"
+    public string? LocationText { get; set; }
 
     [Required]
-    public string Status { get; set; } = "Pending";  // "Pending", "In Progress", "Resolved"
+    public Point LocationGeom { get; set; } = null!;
 
-    
+    public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
+
+    [Required]
+    public string Status { get; set; } = "Pending";
+
+    public string? ImageUrl { get; set; }
+
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+
+    public ICollection<ReportHistory> ReportHistories { get; set; } = new List<ReportHistory>();
+    public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 }
+}
+

@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
-
 </head>
 <body class="login-page">
     <div class="container">
@@ -22,48 +21,31 @@
         </div>
 
         <div class="form-panel">
-        <form id="loginForm" method="post">
-            <img src="~/images/logo only luntian.png" class="icon" alt="LUNTIAN Icon" />
-            <h2>LOG IN</h2>
+            <form method="post" asp-action="Login" asp-controller="Account">
+                <img src="~/images/logo only luntian.png" class="icon" alt="LUNTIAN Icon" />
+                <h2>LOG IN</h2>
 
-            <input type="hidden" name="role" value="@selectedRole" />
+                <input type="hidden" name="role" value="@selectedRole" />
 
-            <div class="input-icon">
-                <i class="fa fa-user"></i>
-                <input type="email" placeholder="example@luntian.org" required />
-            </div>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input type="email" name="email" placeholder="example@luntian.org" required />
+                </div>
 
-            <div class="input-icon">
-                <i class="fa fa-lock"></i>
-                <input type="password" name="password" placeholder="Password" required />
-            </div>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" required />
+                </div>
 
-            <button type="submit">LOG IN</button>
+                <button type="submit">LOG IN</button>
 
-            <div class="form-links">
-                <a asp-action="ForgotPassword" asp-controller="Home">Forgot your password?</a>
-                <p>Don’t have an account? <a asp-action="Signup" asp-controller="Home">Sign Up</a></p>
-                <p><a asp-action="RoleSelection" asp-controller="Home">← Back to Role Selection</a></p>
-            </div>
-        </form>
-
+                <div class="form-links">
+                    <a asp-action="ForgotPassword" asp-controller="Home">Forgot your password?</a>
+                    <p>Don’t have an account? <a asp-action="Signup" asp-controller="Home">Sign Up</a></p>
+                    <p><a asp-action="RoleSelection" asp-controller="Home">← Back to Role Selection</a></p>
+                </div>
+            </form>
         </div>
     </div>
-    <script>
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const role = new URLSearchParams(window.location.search).get("role");
-
-        if (role === "Citizen") {
-            window.location.href = "/Home/CitizenHome";
-        } else if (role === "Official") {
-            window.location.href = "/Home/Dashboard";
-        } else {
-            alert("Invalid role. Please go back and select a role.");
-        }
-    });
-</script>
-
 </body>
 </html>

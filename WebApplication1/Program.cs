@@ -1,36 +1,39 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
+
+// ---------- Services Configuration ----------
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         x => x.UseNetTopologySuite()
     ));
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
+builder.Services.AddSession(); // Add session support
+builder.Services.AddHttpContextAccessor(); // Optional but helpful
+
+// ---------- Build App ----------
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ---------- Middleware Pipeline ----------
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-//checking commit - naka-commit na
+
 app.UseHttpsRedirection();
+app.UseStaticFiles(); // Needed for serving CSS/JS/images
+
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseSession();        // ✅ SESSION comes after routing
+app.UseAuthorization();  // ✅ Authorization after session
 
-app.MapStaticAssets();
-
+// ---------- Routing ----------
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=RoleSelection}/{id?}");

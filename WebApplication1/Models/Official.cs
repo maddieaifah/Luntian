@@ -1,9 +1,29 @@
-public class Official
+using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication1.Models{
+    public class Official
 {
-    public int Id { get; set; }
-    public string BarangayName { get; set; } = string.Empty;      // brgyNameInput
-    public string Subdivision { get; set; } = string.Empty;         // brgySubInput
-    public string FullAddress { get; set; } = string.Empty;         // brgyAddressInput
-    public string Email { get; set; } = string.Empty;  
-    public string Password { get; set; } = string.Empty;  
+    public int OfficialId { get; set; }
+
+    [Required]
+    public int UserId { get; set; }
+    public User User { get; set; } = null!;
+
+    [Required]
+    public string FirstName { get; set; } = string.Empty;
+
+    [Required]
+    public string LastName { get; set; } = string.Empty;
+
+    [Required]
+    public int BarangayId { get; set; }
+    public Barangay Barangay { get; set; } = null!;
+
+    public string? Position { get; set; }
+
+    public string? ContactNumber { get; set; }
+
+    public ICollection<ReportHistory> ReportHistories { get; set; } = new List<ReportHistory>();
 }
+}
+

@@ -1,10 +1,40 @@
-public class VolunteerEvent
+using System.ComponentModel.DataAnnotations;
+using NetTopologySuite.Geometries;
+
+namespace WebApplication1.Models{
+    public class VolunteerEvent
 {
-    public int Id { get; set; }
+
+    [Key]
+    public int EventId { get; set; }
+
+    [Required]
+    public int BarangayId { get; set; }
+    public Barangay Barangay { get; set; } = null!;
+
+    public int? OfficialId { get; set; }
+    public Official? Organizer { get; set; }
+
+    [Required]
     public string Title { get; set; } = string.Empty;
-    public string Location { get; set; } = string.Empty;
-    public DateTime DateTime { get; set; } 
+
+    [Required]
+    public string LocationText { get; set; } = string.Empty;
+
+    public Point? LocationGeom { get; set; }
+
+    public DateTime EventDateTime { get; set; }
+
+    [Required]
     public string Description { get; set; } = string.Empty;
-    public string ImagePath { get; set; } = string.Empty; // Path to the event image
-    public int OrganizerId { get; set; }          // Foreign key to Official or Admin
+
+    public string? ImagePath { get; set; }
+
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+
+    public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+}
+
 }

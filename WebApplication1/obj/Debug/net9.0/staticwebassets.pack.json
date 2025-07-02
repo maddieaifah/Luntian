@@ -65,6 +65,42 @@
       "PackagePath": "staticwebassets\\images\\clean.jpg"
     },
     {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\001204ee-c24f-467d-bca9-e691a870ae94.jpg",
+      "PackagePath": "staticwebassets\\images\\events\\001204ee-c24f-467d-bca9-e691a870ae94.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\40469223-a2d6-45c6-a9a3-0fb33a455a2c.png",
+      "PackagePath": "staticwebassets\\images\\events\\40469223-a2d6-45c6-a9a3-0fb33a455a2c.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\5846baf7-f47e-4e6a-b565-f8ecc8e04f90.png",
+      "PackagePath": "staticwebassets\\images\\events\\5846baf7-f47e-4e6a-b565-f8ecc8e04f90.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\8b0664fb-62d7-4f0b-a1ad-3f831a6aabb5.png",
+      "PackagePath": "staticwebassets\\images\\events\\8b0664fb-62d7-4f0b-a1ad-3f831a6aabb5.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\98d3c514-30ab-4d00-9a51-761f7130f399.png",
+      "PackagePath": "staticwebassets\\images\\events\\98d3c514-30ab-4d00-9a51-761f7130f399.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\a2dfc1a7-3f25-4ca0-9da6-aa191db7e8bc.png",
+      "PackagePath": "staticwebassets\\images\\events\\a2dfc1a7-3f25-4ca0-9da6-aa191db7e8bc.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\baf5f90d-4bf8-43f8-929e-e678860d0377.png",
+      "PackagePath": "staticwebassets\\images\\events\\baf5f90d-4bf8-43f8-929e-e678860d0377.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\c04eedc3-bb26-40d2-babe-463413082510.png",
+      "PackagePath": "staticwebassets\\images\\events\\c04eedc3-bb26-40d2-babe-463413082510.png"
+    },
+    {
+      "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\events\\edb9a4bd-fb86-4fde-b0c5-7ec48c2646cd.png",
+      "PackagePath": "staticwebassets\\images\\events\\edb9a4bd-fb86-4fde-b0c5-7ec48c2646cd.png"
+    },
+    {
       "Id": "C:\\Users\\Andrei\\Luntian\\WebApplication1\\wwwroot\\images\\garbage.png",
       "PackagePath": "staticwebassets\\images\\garbage.png"
     },
