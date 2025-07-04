@@ -11,7 +11,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"),
         x => x.UseNetTopologySuite()
     ));
-
 builder.Services.AddSession(); // Add session support
 builder.Services.AddHttpContextAccessor(); // Optional but helpful
 

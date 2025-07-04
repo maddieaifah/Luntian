@@ -1,7 +1,10 @@
+@model List<WebApplication1.Models.VolunteerEvent>
+
 @{
     ViewData["Title"] = "Citizen Home";
     Layout = null;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,22 +53,27 @@
     <div class="main-content">
         <h2 class="section-title">Volunteer Events</h2>
         <div class="card-grid">
-        @for (int i = 0; i < 10; i++)
-        {
-          <div class="event-card" onclick="handleCardClick(this)">
-            <img src="~/images/volunteer.jpg" alt="Volunteer Event" class="event-image" />
-            
-      <div class="event-details">
-        <div class="event-title">Clean-Up Drive</div>
-        <div class="event-desc short">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <button class="toggle-desc" onclick="toggleDescription(this)">Read more</button>
-        <button class="event-btn" onclick="event.stopPropagation(); joinEvent(this)">Join Now</button>
-        </div>
-      </div>
-      }
-
+          @if (Model != null && Model.Count > 0)
+          {
+              foreach (var evt in Model)
+              {
+                  <div class="event-card" onclick="handleCardClick(this)">
+                      <img src="@evt.ImagePath" alt="Volunteer Event" class="event-image" />
+                      <div class="event-details">
+                          <div class="event-title">@evt.Title</div>
+                          <div class="event-desc short">
+                              @evt.Description
+                          </div>
+                          <button class="toggle-desc" onclick="toggleDescription(this)">Read more</button>
+                          <button class="event-btn" onclick="event.stopPropagation(); joinEvent(this)">Join Now</button>
+                      </div>
+                  </div>
+              }
+          }
+          else
+          {
+              <p>No volunteer events in your barangay.</p>
+          }
   <div id="successModal" class="modal-overlay" style="display: none;">
     <div class="modal-content">
       <h3 id="modalMessage">Success</h3>
@@ -73,9 +81,10 @@
     </div>
   </div>
 
-            }
+            
         </div>
     </div>
+
 <script>
   function toggleMenu() {
     const navLinks = document.getElementById("navLinks");

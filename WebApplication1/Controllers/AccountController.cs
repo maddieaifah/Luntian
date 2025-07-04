@@ -14,30 +14,41 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Login(string email, string password, string role)
+    [HttpPost]
+public IActionResult Login(string email, string password, string role)
+{
+    var user = _context.Users.FirstOrDefault(u =>
+        u.Email == email &&
+        u.PasswordHash == password &&  // 🔐 Replace with hash check in real app
+        u.Role == role);
+
+    if (user != null)
     {
-        var user = _context.Users.FirstOrDefault(u =>
-            u.Email == email &&
-            u.PasswordHash == password &&  // In real apps, use a hasher
-            u.Role == role);
+        // Save UserId and Role in session
+        HttpContext.Session.SetInt32("UserId", user.UserId);
+        HttpContext.Session.SetString("Role", user.Role);
 
-        if (user != null)
+        if (role == "Citizen")
         {
-            // Store user ID and role in session
-            HttpContext.Session.SetInt32("UserId", user.UserId);
-            HttpContext.Session.SetString("Role", user.Role);
-
-            return role switch
+            var citizen = _context.Citizens.FirstOrDefault(c => c.UserId == user.UserId);
+            if (citizen != null)
             {
-                "Citizen" => RedirectToAction("CitizenHome", "Home"),
-                "Official" => RedirectToAction("Dashboard", "Home"),
-                _ => RedirectToAction("RoleSelection", "Home")
-            };
+                HttpContext.Session.SetInt32("CitizenId", citizen.CitizenId);
+            }
         }
 
-        TempData["Error"] = "Invalid login credentials.";
-        return View(); // Rerender the view with error
+        return role switch
+        {
+            "Citizen" => RedirectToAction("CitizenHome", "Home"),
+            "Official" => RedirectToAction("Dashboard", "Home"),
+            _ => RedirectToAction("RoleSelection", "Home")
+        };
     }
+
+    TempData["Error"] = "Invalid login credentials.";
+    return View("~/Views/Home/Login.cshtml");
+}
+
 
     [HttpGet]
     public IActionResult Login() => View();

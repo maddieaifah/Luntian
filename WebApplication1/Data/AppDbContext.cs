@@ -11,6 +11,7 @@ namespace WebApplication1.Data
         public DbSet<Citizen> Citizens { get; set; }
         public DbSet<Official> Officials { get; set; }
         public DbSet<Barangay> Barangays { get; set; }
+        public DbSet<BarangayMaster> BarangayMasters { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<ReportHistory> ReportHistories { get; set; }
         public DbSet<VolunteerEvent> VolunteerEvents { get; set; }
@@ -18,7 +19,7 @@ namespace WebApplication1.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Relationships
+            // User-Citizen and User-Official one-to-one
             modelBuilder.Entity<User>()
                 .HasOne(u => u.CitizenProfile)
                 .WithOne(c => c.User)
@@ -29,7 +30,7 @@ namespace WebApplication1.Data
                 .WithOne(o => o.User)
                 .HasForeignKey<Official>(o => o.UserId);
 
-            // Spatial columns config
+            // Spatial types
             modelBuilder.Entity<Barangay>()
                 .Property(b => b.Geom)
                 .HasColumnType("geometry");
@@ -42,10 +43,25 @@ namespace WebApplication1.Data
                 .Property(v => v.LocationGeom)
                 .HasColumnType("geometry");
 
-            modelBuilder.Entity<ReportHistory>()
-                .HasKey(rh => rh.HistoryId);
+            modelBuilder.Entity<BarangayMaster>()
+                .Property(b => b.geom)
+                .HasColumnType("geometry");
 
-            // ✅ Seed Data
+            modelBuilder.Entity<BarangayMaster>()
+                .HasKey(bm => bm.ADM4_PCODE);
+
+            modelBuilder.Entity<Barangay>()
+                .HasOne(b => b.BarangayMaster)
+                .WithMany(bm => bm.Barangays)
+                .HasForeignKey(b => b.BarangayMasterPCode)
+                .HasPrincipalKey(bm => bm.ADM4_PCODE)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+
+            
+
+            // Optional seeding example (adjust based on actual ADM4_PCODE in CSV)
             modelBuilder.Entity<Barangay>().HasData(new Barangay
             {
                 BarangayId = 1,
@@ -54,7 +70,8 @@ namespace WebApplication1.Data
                 FullAddress = "Sta. Mesa, Manila",
                 ContactNumber = "09123456789",
                 Email = "barangay630@manila.gov.ph",
-                Geom = null
+                Geom = null,
+                BarangayMasterPCode = "PH1303901630" // Replace with actual PCODE from masterlist
             });
 
             modelBuilder.Entity<User>().HasData(
@@ -98,7 +115,7 @@ namespace WebApplication1.Data
                 ContactNumber = "09999999999"
             });
 
-            base.OnModelCreating(modelBuilder); // 👈 Put this last
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

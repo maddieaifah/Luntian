@@ -13,8 +13,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250701065103_SeedInitialUserAndBarangayFixed")]
-    partial class SeedInitialUserAndBarangayFixed
+    [Migration("20250704054521_AddBarangayIdToCitizen")]
+    partial class AddBarangayIdToCitizen
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,11 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BarangayId"));
+
+                    b.Property<string>("BarangayMasterPCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("BarangayName")
                         .IsRequired()
@@ -55,18 +60,95 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("BarangayId");
 
+                    b.HasIndex("BarangayMasterPCode");
+
                     b.ToTable("Barangays");
 
                     b.HasData(
                         new
                         {
                             BarangayId = 1,
+                            BarangayMasterPCode = "PH1303901630",
                             BarangayName = "Barangay 630",
                             ContactNumber = "09123456789",
                             Email = "barangay630@manila.gov.ph",
                             FullAddress = "Sta. Mesa, Manila",
                             SubLocality = "Sta. Mesa"
                         });
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.BarangayMaster", b =>
+                {
+                    b.Property<string>("ADM4_PCODE")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ADM0_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM0_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM1_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM1_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM2_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM2_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM3_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM3_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM4_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM4_REF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Area_SQKM")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Shape_Area")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Shape_Leng")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ValidOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WKT")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Geometry>("geom")
+                        .HasColumnType("geometry");
+
+                    b.HasKey("ADM4_PCODE");
+
+                    b.ToTable("BarangayMasters");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>
@@ -81,6 +163,9 @@ namespace WebApplication1.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BarangayId")
                         .HasColumnType("int");
 
                     b.Property<string>("FirstName")
@@ -101,6 +186,8 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CitizenId");
+
+                    b.HasIndex("BarangayId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
@@ -409,13 +496,30 @@ namespace WebApplication1.Migrations
                     b.ToTable("VolunteerEvents");
                 });
 
+            modelBuilder.Entity("WebApplication1.Models.Barangay", b =>
+                {
+                    b.HasOne("WebApplication1.Models.BarangayMaster", "BarangayMaster")
+                        .WithMany("Barangays")
+                        .HasForeignKey("BarangayMasterPCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BarangayMaster");
+                });
+
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>
                 {
+                    b.HasOne("WebApplication1.Models.Barangay", "Barangay")
+                        .WithMany()
+                        .HasForeignKey("BarangayId");
+
                     b.HasOne("WebApplication1.Models.User", "User")
                         .WithOne("CitizenProfile")
                         .HasForeignKey("WebApplication1.Models.Citizen", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Barangay");
 
                     b.Navigation("User");
                 });
@@ -520,6 +624,11 @@ namespace WebApplication1.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("VolunteerEvents");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.BarangayMaster", b =>
+                {
+                    b.Navigation("Barangays");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>

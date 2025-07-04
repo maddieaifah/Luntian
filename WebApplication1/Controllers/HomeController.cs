@@ -52,10 +52,34 @@ public class HomeController : Controller
 
     public IActionResult ForgotPassword() => View();
 
-    public IActionResult CitizenHome()
+    [HttpGet]
+    public async Task<IActionResult> CitizenHome()
     {
-        return View();
+        var citizenId = HttpContext.Session.GetInt32("CitizenId");
+
+        if (citizenId == null)
+        {
+            return RedirectToAction("Login", "Home");
+        }
+
+        var citizen = await _context.Citizens
+            .Include(c => c.Barangay)
+            .FirstOrDefaultAsync(c => c.CitizenId == citizenId);
+
+        if (citizen == null || citizen.BarangayId == null)
+        {
+            TempData["Error"] = "No barangay assigned to your account.";
+            return View(new List<VolunteerEvent>());
+        }
+
+        var events = await _context.VolunteerEvents
+            .Where(e => e.BarangayId == citizen.BarangayId)
+            .OrderByDescending(e => e.EventDateTime)
+            .ToListAsync();
+
+        return View(events); // Pass events to the view
     }
+
 
     public IActionResult ReportIssue()
     {

@@ -13,8 +13,8 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250701062218_RebuildInitial")]
-    partial class RebuildInitial
+    [Migration("20250703092013_ReinitSchema")]
+    partial class ReinitSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,11 @@ namespace WebApplication1.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BarangayId"));
+
+                    b.Property<string>("BarangayMasterPCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("BarangayName")
                         .IsRequired()
@@ -55,7 +60,95 @@ namespace WebApplication1.Migrations
 
                     b.HasKey("BarangayId");
 
+                    b.HasIndex("BarangayMasterPCode");
+
                     b.ToTable("Barangays");
+
+                    b.HasData(
+                        new
+                        {
+                            BarangayId = 1,
+                            BarangayMasterPCode = "PH1303901630",
+                            BarangayName = "Barangay 630",
+                            ContactNumber = "09123456789",
+                            Email = "barangay630@manila.gov.ph",
+                            FullAddress = "Sta. Mesa, Manila",
+                            SubLocality = "Sta. Mesa"
+                        });
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.BarangayMaster", b =>
+                {
+                    b.Property<string>("ADM4_PCODE")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ADM0_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM0_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM1_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM1_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM2_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM2_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM3_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM3_PCODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM4_EN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADM4_REF")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Area_SQKM")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Shape_Area")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Shape_Leng")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("ValidOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WKT")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Geometry>("geom")
+                        .HasColumnType("geometry");
+
+                    b.HasKey("ADM4_PCODE");
+
+                    b.ToTable("BarangayMasters");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>
@@ -95,6 +188,18 @@ namespace WebApplication1.Migrations
                         .IsUnique();
 
                     b.ToTable("Citizens");
+
+                    b.HasData(
+                        new
+                        {
+                            CitizenId = 1,
+                            Address = "Sample Street, Manila",
+                            Age = 25,
+                            FirstName = "Juan",
+                            LastName = "Dela Cruz",
+                            Sex = "Male",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Notification", b =>
@@ -175,6 +280,18 @@ namespace WebApplication1.Migrations
                         .IsUnique();
 
                     b.ToTable("Officials");
+
+                    b.HasData(
+                        new
+                        {
+                            OfficialId = 1,
+                            BarangayId = 1,
+                            ContactNumber = "09999999999",
+                            FirstName = "Maria",
+                            LastName = "Santos",
+                            Position = "Barangay Captain",
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Report", b =>
@@ -304,6 +421,24 @@ namespace WebApplication1.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "citizen@example.com",
+                            PasswordHash = "citizen123",
+                            Role = "Citizen"
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "official@example.com",
+                            PasswordHash = "official123",
+                            Role = "Official"
+                        });
                 });
 
             modelBuilder.Entity("WebApplication1.Models.VolunteerEvent", b =>
@@ -354,6 +489,17 @@ namespace WebApplication1.Migrations
                     b.HasIndex("OfficialId");
 
                     b.ToTable("VolunteerEvents");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.Barangay", b =>
+                {
+                    b.HasOne("WebApplication1.Models.BarangayMaster", "BarangayMaster")
+                        .WithMany("Barangays")
+                        .HasForeignKey("BarangayMasterPCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BarangayMaster");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>
@@ -467,6 +613,11 @@ namespace WebApplication1.Migrations
                     b.Navigation("Reports");
 
                     b.Navigation("VolunteerEvents");
+                });
+
+            modelBuilder.Entity("WebApplication1.Models.BarangayMaster", b =>
+                {
+                    b.Navigation("Barangays");
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Citizen", b =>
